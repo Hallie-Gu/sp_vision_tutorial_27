@@ -34,6 +34,11 @@ Camera::Camera():handle_(nullptr){
     MV_CC_SetFloatValue(handle_, "ExposureTime", 10000);
     MV_CC_SetFloatValue(handle_, "Gain", 20);
     MV_CC_SetFrameRate(handle_, 60);
+
+    ret = MV_CC_StartGrabbing(handle_);
+    if (ret != MV_OK) {
+      return;
+    }
 }
 
 Camera::~Camera(){
@@ -70,14 +75,12 @@ cv::Mat transfer(MV_FRAME_OUT& raw)
 }
 
 void Camera::read(cv::Mat& img){
-    int ret = MV_CC_StartGrabbing(handle_);
-    if (ret != MV_OK) {
-      return;
-    }
+    
+    
     MV_FRAME_OUT raw;
     unsigned int nMsec = 100;
 
-    ret = MV_CC_GetImageBuffer(handle_, &raw, nMsec);
+    int ret = MV_CC_GetImageBuffer(handle_, &raw, nMsec);
     if (ret != MV_OK) {
       return;
     }

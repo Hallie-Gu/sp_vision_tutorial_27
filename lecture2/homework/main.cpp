@@ -30,9 +30,9 @@ int main()
         frame_count++;
 
         // 显示图像
-        cv::resize(img, img , cv::Size(640, 480));
+        cv::resize(img, img , {},1.5,1.5);
         cv::imshow("img", img);
-        if (cv::waitKey(0) == 'q') {
+        if (cv::waitKey(1) == 'q') {
          break;
          }
     }
