@@ -70,21 +70,21 @@ cv::Mat transfer(MV_FRAME_OUT& raw)
 }
 
 void Camera::read(cv::Mat& img){
-    ret = MV_CC_StartGrabbing(handle);
+    int ret = MV_CC_StartGrabbing(handle_);
     if (ret != MV_OK) {
-      return -1;
+      return;
     }
     MV_FRAME_OUT raw;
     unsigned int nMsec = 100;
 
-    int ret = MV_CC_GetImageBuffer(handle_, &raw, nMsec);
+    ret = MV_CC_GetImageBuffer(handle_, &raw, nMsec);
     if (ret != MV_OK) {
       return;
     }
 
     img = transfer(raw);
-    cv::imshow("img", img);
-    cv::waitKey(0);
+    //cv::imshow("img", img);
+    //cv::waitKey(0);
 
     ret = MV_CC_FreeImageBuffer(handle_, &raw);
 }

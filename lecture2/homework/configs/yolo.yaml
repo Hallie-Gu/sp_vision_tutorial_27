@@ -1,5 +1,11 @@
 #需要自行将配置文件中的相机参数补全
 
+# 相机参数
+camera_name: "hikrobot"
+exposure_ms: 3
+gain: 10.0
+vid_pid: "2bdf:0001"
+
 yolo_name: yolov5
 yolov5_model_path: assets/yolov5.xml
 device: CPU
