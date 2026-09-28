@@ -1,4 +1,5 @@
 #pragma once
+#include <mutex>
 
 struct StatisticsSnapshot
 {
@@ -18,9 +19,11 @@ public:
     StatisticsSnapshot snapshot() const;
 
 private:
+    mutable std::mutex mutex_;
     // TODO: This object is shared by multiple worker threads.
     int produced_ = 0;
     int processed_ = 0;
     int saved_ = 0;
     int corrupted_ = 0;
+    
 };

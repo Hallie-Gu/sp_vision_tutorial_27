@@ -37,6 +37,7 @@ Pipeline::Pipeline(std::unique_ptr<FrameSource> source, PipelineConfig config)
 
 Pipeline::~Pipeline()
 {
+    wait();
     // TODO: Make sure Pipeline never destroys running threads.
 }
 
