@@ -44,7 +44,23 @@ int main(int argc, char * argv[])
 
   while (!exiter.exit()) {
     // Your code start
+    camera.read(img,t);
+    q=gimbal.q(t);
+    solver.set_R_gimbal2world(q);
 
+    auto armors = yolo.detect(img);
+
+    for (auto & armor : armors) {
+      solver.solve(armor);
+
+      nlohmann::json data;
+      data["x"] = armor.xyz_in_world[0];
+      data["y"] = armor.xyz_in_world[1];
+      data["z"] = armor.xyz_in_world[2];
+
+      plotter.plot(data);
+      cv::waitKey(1);
+    }
     // Your code end
   }
 
